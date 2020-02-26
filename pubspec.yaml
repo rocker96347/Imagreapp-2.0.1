@@ -1,0 +1,55 @@
+name: imgreat_phone_app
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # notifications:
+  #   git:
+  #     url: git://github.com/cph-cachet/flutter-plugins.git
+  #     path: packages/notifications
+  cupertino_icons: ^0.1.2
+  firebase_core: ^0.4.3+1
+  firebase_auth: ^0.15.2
+  cloud_firestore: ^0.13.0+1
+  sqflite: any
+  path_provider: any
+  shared_preferences: ^0.5.2
+  share: ^0.6.1+1
+  speech_recognition: ^0.3.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_launcher_icons: ^0.7.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/icons/ic_launcher.png"
+  image_path_ios: "assets/icons/ic_launcher.png"
+
+flutter:
+  uses-material-design: true
+
+  assets: 
+    - assets/images/logo.png
+    - assets/images/fitness.jpg
+    - assets/icons/ic_launcher.png
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 600
+    - family: Microsoft-JhengHei
+      fonts:
+        - asset: assets/fonts/Microsoft-JhengHei.ttf
