@@ -21,7 +21,7 @@ class _PageChatState extends State<PageChat> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
   final String userNameKey = "usernamekey";
-  String myuser = "A";
+  String myuser = "";
   bool _logIn = false;
 
   TextEditingController messageController = TextEditingController();
@@ -50,29 +50,30 @@ class _PageChatState extends State<PageChat> {
     _loadUser();
     print("Chat page");
     print(_logIn);
-    if (myuser != "A") {
-      setState(() {
-        _logIn = true;
-      });
-      print("歡迎!" + myuser);
-    } else {
-      print("請登入!");
-    }
     print(myuser);
   }
 
   @override
   void dispose() {
-    scrollController.dispose(); //为了避免内存泄露，需要调用scrollController.dispose
     super.dispose();
+    scrollController.dispose(); //为了避免内存泄露，需要调用scrollController.dispose
     print("下次見!" + myuser);
   }
 
   Future _loadUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      myuser = (prefs.getString(userNameKey));
-    });
+    if (prefs.getString(userNameKey) != null)
+      setState(() {
+        myuser = (prefs.getString(userNameKey));
+        if (myuser != "") {
+          setState(() {
+            _logIn = true;
+          });
+          print("歡迎!" + myuser);
+        } else {
+          print("請登入!");
+        }
+      });
   }
 
   Future _userSignIn() async {
@@ -80,7 +81,7 @@ class _PageChatState extends State<PageChat> {
     setState(() {
       prefs.setString(userNameKey, myuser);
 
-      if (myuser != "A") {
+      if (myuser != "") {
         setState(() {
           _logIn = true;
           print("歡迎!" + myuser);
@@ -92,11 +93,11 @@ class _PageChatState extends State<PageChat> {
   Future _userSignOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      if (myuser != "A") {
+      if (myuser != "") {
         setState(() {
           _logIn = false;
           print(myuser + "登出!");
-          myuser = "A";
+          myuser = "";
           prefs.setString(userNameKey, myuser);
         });
       }
