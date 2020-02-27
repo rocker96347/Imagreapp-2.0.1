@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 
-class Message extends StatelessWidget {
+class ChatMessage extends StatelessWidget {
   final String from;
   final String text;
 
   final bool me;
 
-  const Message({Key key, this.from, this.text, this.me}) : super(key: key);
+  const ChatMessage({Key key, this.from, this.text, this.me}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:imgreat_phone_app/Classes/customButton.dart';
-import 'package:imgreat_phone_app/Classes/message.dart';
+import 'package:imgreat_phone_app/Classes/chatMessage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PageChat extends StatefulWidget {
@@ -49,8 +49,6 @@ class _PageChatState extends State<PageChat> {
     super.initState();
     _loadUser();
     print("Chat page");
-    print(_logIn);
-    print(myuser);
   }
 
   @override
@@ -210,7 +208,7 @@ class _PageChatState extends State<PageChat> {
                                   snapshot.data.documents;
 
                               List<Widget> messages = docs
-                                  .map((doc) => Message(
+                                  .map((doc) => ChatMessage(
                                         from: doc.data['from'],
                                         text: doc.data['text'],
                                         me: myuser == doc.data['from'],
