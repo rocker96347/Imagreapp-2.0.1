@@ -28,7 +28,7 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
       _selectedIndex = index;
     });
   }
-  
+
   List<Widget> _bottomNavPages = List(); // 導航欄List
 
   @override
@@ -52,12 +52,12 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-      // IndexedStack(
-      //   index: _selectedIndex,
-      //   children: _bottomNavPages
-      // ),
-      PageView(
+      body:
+          // IndexedStack(
+          //   index: _selectedIndex,
+          //   children: _bottomNavPages
+          // ),
+          PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
         children: _bottomNavPages,

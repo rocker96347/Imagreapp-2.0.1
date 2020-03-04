@@ -1,100 +1,42 @@
 {
   "project_info": {
-    "project_number": "90475705183",
-    "firebase_url": "https://flutterfirebase-64250.firebaseio.com",
-    "project_id": "flutterfirebase-64250",
-    "storage_bucket": "flutterfirebase-64250.appspot.com"
+    "project_number": "151854548965",
+    "firebase_url": "https://imagreatchat.firebaseio.com",
+    "project_id": "imagreatchat",
+    "storage_bucket": "imagreatchat.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:90475705183:android:18b8141e80e21c47243cea",
+        "mobilesdk_app_id": "1:151854548965:android:fc9e508cf1015979f8110c",
         "android_client_info": {
-          "package_name": "com.img.flutterchatdemo"
+          "package_name": "com.imgreat_phone_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "90475705183-qhodl7k8l3ml9ievumba9ba1g6ne6ses.apps.googleusercontent.com",
+          "client_id": "151854548965-4o9v8m3ehehr46cdftrguar0rp1uiol8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.img.flutterchatdemo",
-            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+            "package_name": "com.imgreat_phone_app",
+            "certificate_hash": "b1de84eca1277bf521fffd7c27f6ce914a8baa7e"
           }
         },
         {
-          "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
+          "client_id": "151854548965-aqtkmfgr48um8en73qrjcelvohf2na6l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAAQUsRXSakmPeD-sW-Igmy6Xk4EEKAoJg"
+          "current_key": "AIzaSyDpKdXtgizadLav6nLloBb5FM3xOVE7Re8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:90475705183:android:aae7e6580da74075243cea",
-        "android_client_info": {
-          "package_name": "com.jaxk.chatroom_demo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAAQUsRXSakmPeD-sW-Igmy6Xk4EEKAoJg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:90475705183:android:aebe7152e45a0793243cea",
-        "android_client_info": {
-          "package_name": "com.jaxk.note_demo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAAQUsRXSakmPeD-sW-Igmy6Xk4EEKAoJg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "90475705183-71ud71b3q03d36tcirnuqp8t2dm63qd1.apps.googleusercontent.com",
+              "client_id": "151854548965-aqtkmfgr48um8en73qrjcelvohf2na6l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:imgreat_phone_app/Classes/customButton.dart';
 import 'package:imgreat_phone_app/Classes/chatMessage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,35 +23,52 @@ class PageChat extends StatefulWidget {
 }
 
 class _PageChatState extends State<PageChat> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
   final Firestore _firestore = Firestore.instance;
   final String userNameKey = "usernamekey";
   String myuser = "";
   bool _logIn = false;
 
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      new FlutterLocalNotificationsPlugin();
   TextEditingController messageController = TextEditingController();
   TextEditingController usercontroller = TextEditingController();
   ScrollController scrollController = new ScrollController();
 
-  Future<void> callback() async {
-    if (messageController.text.length > 0) {
-      _firestore.collection('messages').add({
-        'text': messageController.text,
-        'from': myuser,
-        'date': DateTime.now().toIso8601String().toString(),
-      });
+  void callback(String message) {
+    if (message.trim() != '') {
       messageController.clear();
+      var documentReference = _firestore
+          .collection('messages')
+          .document(DateTime.now().millisecondsSinceEpoch.toString());
+
+      _firestore.runTransaction((transaction) async {
+        await transaction.set(
+          documentReference,
+          {
+            'text': message,
+            'from': myuser,
+            'date': FieldValue.serverTimestamp(),
+          },
+        );
+      });
       scrollController.animateTo(
         .0,
         curve: Curves.easeOut,
         duration: const Duration(milliseconds: 200),
       );
+    } else {
+      Fluttertoast.showToast(msg: 'Nothing to send');
     }
   }
 
   @override
   void initState() {
     super.initState();
+    registerNotification();
+    configLocalNotification();
+    _register();
     _loadUser();
     print("Chat page");
   }
@@ -67,8 +89,10 @@ class _PageChatState extends State<PageChat> {
           setState(() {
             _logIn = true;
           });
+          Fluttertoast.showToast(msg: "Welcome!!  $myuser");
           print("歡迎!" + myuser);
         } else {
+          Fluttertoast.showToast(msg: "Please Sign in");
           print("請登入!");
         }
       });
@@ -78,27 +102,110 @@ class _PageChatState extends State<PageChat> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setString(userNameKey, myuser);
-
       if (myuser != "") {
         setState(() {
           _logIn = true;
           print("歡迎!" + myuser);
         });
+        Fluttertoast.showToast(msg: "Welcome!!  $myuser");
       }
     });
   }
 
-  Future _userSignOut() async {
+  Future _signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       if (myuser != "") {
         setState(() {
           _logIn = false;
-          print(myuser + "登出!");
           myuser = "";
           prefs.setString(userNameKey, myuser);
+          print(myuser + "登出!");
         });
+        Fluttertoast.showToast(msg: "Please Sign in");
       }
+    });
+  }
+
+  void _userSignOut() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure, you want to sign out?'),
+            actions: <Widget>[
+              RawMaterialButton(
+                onPressed: () {
+                  _signOut();
+                  Navigator.pop(context);
+                },
+                child: Text('Yes'),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No'),
+              ),
+            ],
+          );
+        });
+  }
+
+  _register() {
+    firebaseMessaging.getToken().then((token) => print(token));
+  }
+
+  void configLocalNotification() {
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  void registerNotification() {
+    firebaseMessaging.requestNotificationPermissions();
+
+    firebaseMessaging.configure(onMessage: (Map<String, dynamic> message) {
+      print('onMessage: $message');
+      showNotification(message['notification']);
+      return;
+    }, onResume: (Map<String, dynamic> message) {
+      print('onResume: $message');
+      return;
+    }, onLaunch: (Map<String, dynamic> message) {
+      print('onLaunch: $message');
+      return;
+    });
+  }
+
+  void showNotification(message) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      Platform.isAndroid ? 'com.imgreat_phone_app' : 'com.imgreat_phone_app',
+      'Imagreapp',
+      'chat notification',
+      playSound: true,
+      enableVibration: true,
+      importance: Importance.Max,
+      priority: Priority.High,
+    );
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
+        message['body'].toString(), platformChannelSpecifics,
+        payload: json.encode(message));
+
+    firebaseMessaging.getToken().then((token) {
+      print('token: $token');
+      _firestore
+          .collection('users')
+          .document(myuser)
+          .updateData({'pushToken': token});
+    }).catchError((err) {
+      Fluttertoast.showToast(msg: err.message.toString());
     });
   }
 
@@ -214,7 +321,6 @@ class _PageChatState extends State<PageChat> {
                                         me: myuser == doc.data['from'],
                                       ))
                                   .toList();
-
                               return ListView(
                                 reverse: true, //使ListView Widget 上下顛倒
                                 controller: scrollController,
@@ -240,7 +346,8 @@ class _PageChatState extends State<PageChat> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 6.0),
                                 child: TextField(
-                                  onSubmitted: (value) => callback(),
+                                  onSubmitted: (value) =>
+                                      callback(messageController.text),
                                   decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.symmetric(horizontal: 15.0),
@@ -259,7 +366,7 @@ class _PageChatState extends State<PageChat> {
                               icon: Icon(Icons.send),
                               iconSize: 25.0,
                               onPressed: () {
-                                callback();
+                                callback(messageController.text);
                               },
                             )
                           ],
