@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imgreat_phone_app/Classes/const.dart';
 import 'bottom_navi.dart';
 
 void main() => runApp(MyApp());
@@ -14,9 +15,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        primarySwatch: colornote,
       ),
-      home: new BottomNavigationBarDemo(),
+      home: new BottomNavigationBarDemo(selectedIndex: 1),
     );
   }
 }

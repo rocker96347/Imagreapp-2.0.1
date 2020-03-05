@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
-import 'Views/page_chat.dart';
+import 'package:imgreat_phone_app/Classes/chatPageView.dart';
+import 'package:imgreat_phone_app/Views/page_login.dart';
+import 'Classes/const.dart';
 import 'Views/page_fitness.dart';
 import 'Views/page_note.dart';
 
 class BottomNavigationBarDemo extends StatefulWidget {
+  BottomNavigationBarDemo({Key key, this.selectedIndex}) : super(key: key);
+
+  int selectedIndex;
+
   @override
   _BottomNavigationBarDemoState createState() =>
       _BottomNavigationBarDemoState();
 }
 
 class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
-  int _selectedIndex = 1;
-  Color colorchat = Colors.cyan[700];
-  Color colornote = Colors.brown;
-  Color colorfitness = Colors.orange;
   PageController pageController;
+  // int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
       pageController.jumpToPage(index);
-      // _selectedIndex = index;
     });
   }
 
   void onPageChanged(int index) {
     setState(() {
-      _selectedIndex = index;
+      widget.selectedIndex = index;
     });
   }
 
@@ -35,11 +37,12 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
   void initState() {
     super.initState();
     _bottomNavPages
-      ..add(PageChat('Chat', colorchat))
-      ..add(PageNote('NOTE', colornote))
-      ..add(PageFitness(colorfitness));
+      // ..add(ChatPageView())
+      ..add(LoginScreen(title: 'CHAT'))
+      ..add(PageNote('NOTE'))
+      ..add(PageFitness());
     pageController = PageController(
-      initialPage: 1,
+      initialPage: widget.selectedIndex,
     );
     print("bottom navigation");
   }
@@ -52,12 +55,7 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          // IndexedStack(
-          //   index: _selectedIndex,
-          //   children: _bottomNavPages
-          // ),
-          PageView(
+      body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
         children: _bottomNavPages,
@@ -79,7 +77,7 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
               title: Text('FITNESS'),
               backgroundColor: colorfitness), // Fitness 導航欄
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: widget.selectedIndex,
         selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),

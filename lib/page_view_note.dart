@@ -38,7 +38,7 @@ class PageViewNoteState extends State<PageViewNote> {
           controller: pagecontroller,
           onPageChanged: onPageChanged,
           children: [
-            PageNote(widget._title, widget._color),
+            PageNote(widget._title),
             AddNote(),
           ],
           physics: NeverScrollableScrollPhysics()), // 禁止滑動
@@ -47,10 +47,10 @@ class PageViewNoteState extends State<PageViewNote> {
         onPressed: () {
           if (currentindex == 0) {
             pagecontroller.animateTo(MediaQuery.of(context).size.width,
-                duration: new Duration(seconds: 1), curve: Curves.easeIn);
+                duration: new Duration(seconds: 0), curve: Curves.easeIn);
           } else {
             pagecontroller.animateTo(0.0,
-                duration: new Duration(seconds: 1), curve: Curves.easeIn);
+                duration: new Duration(seconds: 0), curve: Curves.easeIn);
           }
         },
         child: Icon(Icons.add),

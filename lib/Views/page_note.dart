@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imgreat_phone_app/Classes/const.dart';
 import 'package:imgreat_phone_app/Classes/note.dart';
 import 'package:imgreat_phone_app/Utils/db_halper.dart';
 import 'package:speech_recognition/speech_recognition.dart';
@@ -7,10 +8,9 @@ import 'page_settings.dart';
 
 class PageNote extends StatefulWidget {
   String _title;
-  Color _color;
   Note note;
 
-  PageNote(this._title, this._color, {this.note});
+  PageNote(this._title, {this.note});
 
   @override
   _PageNoteState createState() => _PageNoteState();
@@ -37,13 +37,6 @@ class _PageNoteState extends State<PageNote>
     initSpeechRecognizer();
     print("note page");
   }
-
-//*********notification_listener判定*******//
-  // @override
-  // didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   routeObserver.subscribe(this, ModalRoute.of(context));
-  // }
 
 //*********語音辨識 voice to text*******//
   void initSpeechRecognizer() {
@@ -112,7 +105,7 @@ class _PageNoteState extends State<PageNote>
     databaseHelper.initlizeDatabase();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: widget._color,
+        backgroundColor: colornote,
         leading: IconButton(
           icon: Icon(Icons.build),
           onPressed: () {

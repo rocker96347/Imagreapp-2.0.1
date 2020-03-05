@@ -30,6 +30,11 @@ dependencies:
   shared_preferences: ^0.5.2
   share: ^0.6.1+1
   speech_recognition: ^0.3.0+1
+  
+  swipedetector: ^1.2.0
+  image_picker: 
+  cached_network_image:
+  photo_view:
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +55,17 @@ flutter:
     - assets/images/logo.png
     - assets/images/fitness.jpg
     - assets/icons/ic_launcher.png
+    - images/img_not_available.jpeg
+    - images/mimi1.gif
+    - images/mimi2.gif
+    - images/mimi3.gif
+    - images/mimi4.gif
+    - images/mimi5.gif
+    - images/mimi6.gif
+    - images/mimi7.gif
+    - images/mimi8.gif
+    - images/mimi9.gif
+  
 
   fonts:
     - family: Montserrat

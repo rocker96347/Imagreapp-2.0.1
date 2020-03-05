@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PageFitness extends StatefulWidget {
-  Color _color;
-
-  PageFitness(this._color);
 
   @override
   _PageFitnessState createState() => _PageFitnessState();
