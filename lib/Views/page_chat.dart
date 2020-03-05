@@ -153,7 +153,7 @@ class _PageChatState extends State<PageChat> {
   }
 
   _register() {
-    firebaseMessaging.getToken().then((token) => print(token));
+    firebaseMessaging.getToken().then((token) => print('Token:'+token));
   }
 
   void configLocalNotification() {
@@ -179,11 +179,21 @@ class _PageChatState extends State<PageChat> {
       print('onLaunch: $message');
       return;
     });
+
+    // firebaseMessaging.getToken().then((token) {
+    //   print('token: $token');
+    //   _firestore
+    //       .collection('users')
+    //       .document(myuser)
+    //       .updateData({'pushToken': token});
+    // }).catchError((err) {
+    //   Fluttertoast.showToast(msg: err.message.toString());
+    // });
   }
 
   void showNotification(message) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      Platform.isAndroid ? 'com.imgreat_phone_app' : 'com.imgreat_phone_app',
+      Platform.isAndroid ? 'com.imgreat_phone_app' : 'com.example.imgreatPhoneApp',
       'Imagreapp',
       'chat notification',
       playSound: true,
@@ -197,16 +207,6 @@ class _PageChatState extends State<PageChat> {
     await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
         message['body'].toString(), platformChannelSpecifics,
         payload: json.encode(message));
-
-    firebaseMessaging.getToken().then((token) {
-      print('token: $token');
-      _firestore
-          .collection('users')
-          .document(myuser)
-          .updateData({'pushToken': token});
-    }).catchError((err) {
-      Fluttertoast.showToast(msg: err.message.toString());
-    });
   }
 
   @override
