@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:imgreat_phone_app/Views/chat.dart';
+import 'package:imgreat_phone_app/Views/page_chat.dart';
 import 'package:imgreat_phone_app/Views/page_chatmain.dart';
-import 'package:imgreat_phone_app/Views/page_login.dart';
+import 'package:imgreat_phone_app/Views/page_chatLogin.dart';
 
 class _TabData {
   final Widget tab;

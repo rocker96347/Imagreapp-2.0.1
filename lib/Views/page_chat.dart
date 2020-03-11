@@ -66,8 +66,7 @@ class ChatScreenState extends State<ChatScreen> {
   bool isShowSticker;
   String imageUrl;
 
-  final TextEditingController textEditingController =
-      new TextEditingController();
+  final TextEditingController textEditingController = new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
   final FocusNode focusNode = new FocusNode();
 

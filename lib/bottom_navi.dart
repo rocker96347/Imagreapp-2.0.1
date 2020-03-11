@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imgreat_phone_app/Classes/chatPageView.dart';
-import 'package:imgreat_phone_app/Views/page_login.dart';
+import 'package:imgreat_phone_app/Views/page_chatLogin.dart';
 import 'Classes/const.dart';
 import 'Views/page_fitness.dart';
 import 'Views/page_note.dart';

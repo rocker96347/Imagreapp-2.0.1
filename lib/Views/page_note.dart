@@ -4,7 +4,7 @@ import 'package:imgreat_phone_app/Classes/note.dart';
 import 'package:imgreat_phone_app/Utils/db_halper.dart';
 import 'package:speech_recognition/speech_recognition.dart';
 import 'page_addnote.dart';
-import 'page_settings.dart';
+import 'page_noteSettings.dart';
 
 class PageNote extends StatefulWidget {
   String _title;

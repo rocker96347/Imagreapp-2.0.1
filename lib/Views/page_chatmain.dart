@@ -14,8 +14,8 @@ import 'package:imgreat_phone_app/Classes/const.dart';
 import 'package:imgreat_phone_app/bottom_navi.dart';
 import 'package:swipedetector/swipedetector.dart';
 
-import 'chat.dart';
-import 'settings.dart';
+import 'page_chat.dart';
+import 'page_chatSettings.dart';
 
 class ChatMainScreen extends StatefulWidget {
   final String currentUserId;
